@@ -61,22 +61,27 @@ export default function PasswordModal({
                     />
 
                     <motion.div
-                        initial={{ opacity: 0, y: '100%', scale: 0.95 }}
+                        initial={{ opacity: 0, y: '100%', scale: 1 }}
                         animate={{
                             opacity: 1,
                             y: 0,
                             scale: 1,
                             x: error ? [0, -10, 10, -10, 10, 0] : 0
                         }}
-                        exit={{ opacity: 0, y: '100%', scale: 0.95 }}
+                        exit={{ opacity: 0, y: '100%', scale: 1 }}
                         transition={{
                             type: 'spring',
                             damping: 25,
                             stiffness: 400,
                             x: { duration: 0.4 }
                         }}
-                        className="relative w-full max-w-sm bg-card border-x border-t sm:border border-border rounded-t-[2.5rem] sm:rounded-[2rem] shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden p-8 mb-0 sm:mb-0"
+                        className="relative w-full max-w-[440px] bg-card border-x border-t sm:border border-border rounded-t-[2.5rem] sm:rounded-[2rem] shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden p-8 sm:mb-0"
                     >
+                        {/* Mobile Drag Handle */}
+                        <div className="flex justify-center -mt-4 pb-4 sm:hidden">
+                            <div className="w-12 h-1.5 rounded-full bg-border/40" />
+                        </div>
+
                         <button
                             onClick={onClose}
                             className="absolute top-4 right-4 p-2.5 rounded-full hover:bg-muted text-subtle transition-all hover:rotate-90"
