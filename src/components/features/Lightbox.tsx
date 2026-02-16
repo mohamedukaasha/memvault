@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { EVENT_CATEGORIES, GRADES, SCHOOL_YEARS } from '@/constants/config';
+import PasswordModal from './PasswordModal';
 
 interface LightboxProps {
   memory: MemoryItem | null;
@@ -28,6 +29,17 @@ export default function Lightbox({ memory, onClose, onPrev, onNext, hasPrev, has
 
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [passwordModal, setPasswordModal] = useState<{
+    isOpen: boolean;
+    onSuccess: () => void;
+    title: string;
+    description: string;
+  }>({
+    isOpen: false,
+    onSuccess: () => { },
+    title: '',
+    description: '',
+  });
 
   useEffect(() => {
     if (memory) {
@@ -71,25 +83,31 @@ export default function Lightbox({ memory, onClose, onPrev, onNext, hasPrev, has
     }
   };
 
-  const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this memory? This action cannot be undone.')) return;
-    setIsDeleting(true);
-    try {
-      await deleteMemory(memory.id);
-      onClose();
-      toast({
-        title: 'Memory Deleted',
-        description: 'The memory has been removed from the vault.',
-      });
-    } catch (err) {
-      toast({
-        title: 'Delete Failed',
-        description: 'There was an error deleting the memory.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsDeleting(false);
-    }
+  const handleDelete = () => {
+    setPasswordModal({
+      isOpen: true,
+      title: 'Delete Memory',
+      description: `Enter the admin password to permanently delete "${memory.title}". This action cannot be undone.`,
+      onSuccess: async () => {
+        setIsDeleting(true);
+        try {
+          await deleteMemory(memory.id);
+          onClose();
+          toast({
+            title: 'Memory Deleted',
+            description: 'The memory has been removed from the vault.',
+          });
+        } catch (err) {
+          toast({
+            title: 'Delete Failed',
+            description: 'There was an error deleting the memory.',
+            variant: 'destructive',
+          });
+        } finally {
+          setIsDeleting(false);
+        }
+      }
+    });
   };
 
   return (
@@ -329,6 +347,14 @@ export default function Lightbox({ memory, onClose, onPrev, onNext, hasPrev, has
           </div>
         </motion.div>
       </motion.div>
+
+      <PasswordModal
+        isOpen={passwordModal.isOpen}
+        title={passwordModal.title}
+        description={passwordModal.description}
+        onClose={() => setPasswordModal(prev => ({ ...prev, isOpen: false }))}
+        onSuccess={passwordModal.onSuccess}
+      />
     </AnimatePresence>
   );
 }
