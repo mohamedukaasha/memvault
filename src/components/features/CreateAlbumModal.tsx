@@ -137,12 +137,17 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                     />
 
                     <motion.div
-                        initial={{ opacity: 0, y: '100%', scale: 0.95 }}
+                        initial={{ opacity: 0, y: '100%', scale: 1 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: '100%', scale: 0.95 }}
+                        exit={{ opacity: 0, y: '100%', scale: 1 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="relative w-full max-w-lg sm:max-w-md bg-card border-x border-t sm:border border-border rounded-t-[2.5rem] sm:rounded-[2rem] shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden max-h-[92vh] flex flex-col"
+                        className="relative w-full max-w-[500px] sm:max-w-md bg-card border-x border-t sm:border border-border rounded-t-[2.5rem] sm:rounded-[2rem] shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden max-h-[92vh] flex flex-col"
                     >
+                        {/* Mobile Drag Handle */}
+                        <div className="flex justify-center pt-3 pb-1 sm:hidden">
+                            <div className="w-12 h-1.5 rounded-full bg-border/40" />
+                        </div>
+
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 sm:p-7 border-b border-border/50">
                             <div>
