@@ -57,23 +57,9 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <button
-              onClick={() => setIsPasswordModalOpen(true)}
-              className="ml-2 size-9 rounded-lg bg-gold flex items-center justify-center hover:bg-amber-400 transition-all duration-300 shadow-lg shadow-gold/10 hover:shadow-gold/20 hover:scale-105 active:scale-95"
-              title="Submit Memory"
-            >
-              <Camera className="size-5 text-background" strokeWidth={2.5} />
-            </button>
           </div>
 
           <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={() => setIsPasswordModalOpen(true)}
-              className="size-9 rounded-lg bg-gold flex items-center justify-center shadow-lg shadow-gold/10"
-              title="Submit Memory"
-            >
-              <Camera className="size-5 text-background" strokeWidth={2.5} />
-            </button>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 rounded-lg hover:bg-secondary/60 transition-colors text-bright"
