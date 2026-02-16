@@ -14,6 +14,7 @@ export default function Albums() {
     isOpen: boolean;
     onSuccess: () => void;
     title: string;
+    description?: string;
   }>({
     isOpen: false,
     onSuccess: () => { },
@@ -30,6 +31,7 @@ export default function Albums() {
     setPasswordModal({
       isOpen: true,
       title: 'Create New Album',
+      description: 'Enter the admin password to create a new curated collection.',
       onSuccess: () => setIsCreateModalOpen(true)
     });
   };
@@ -38,6 +40,7 @@ export default function Albums() {
     setPasswordModal({
       isOpen: true,
       title: 'Submit New Memory',
+      description: 'The submission form is restricted to students and staff. Please enter the password.',
       onSuccess: () => navigate('/submit')
     });
   };
@@ -46,6 +49,7 @@ export default function Albums() {
     setPasswordModal({
       isOpen: true,
       title: `Delete "${name}" Album`,
+      description: `Please enter the admin password to confirm the deletion of "${name}". This cannot be undone.`,
       onSuccess: async () => {
         try {
           await deleteAlbum(id);
