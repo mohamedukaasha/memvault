@@ -79,60 +79,69 @@ export default function Albums() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex items-center gap-2.5 sm:gap-3"
+          className="flex items-center gap-2.5 sm:gap-4"
         >
           <button
             onClick={handleCreateAlbumClick}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-2xl border border-border bg-card text-bright text-sm font-bold hover:bg-muted hover:border-gold/30 transition-all active:scale-95 shadow-lg shadow-black/20"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-2xl border border-border bg-card text-bright text-sm font-black uppercase tracking-widest hover:bg-muted hover:border-gold/30 transition-all active:scale-95 shadow-xl shadow-black/20"
           >
-            <Plus className="size-4 text-gold" />
-            <span className="hidden xs:inline">New Album</span>
-            <span className="xs:hidden">Album</span>
+            <Plus className="size-4 text-gold shrink-0" />
+            <span>New Album</span>
           </button>
           <button
             onClick={handleNewMemoryClick}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-2xl bg-gold text-background text-sm font-bold hover:bg-amber-400 transition-all active:scale-95 shadow-lg shadow-gold/20"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-2xl bg-gold text-background text-sm font-black uppercase tracking-widest hover:bg-amber-400 transition-all active:scale-95 shadow-lg shadow-gold/20"
           >
-            <LayoutGrid className="size-4" />
-            <span className="hidden xs:inline">New Memory</span>
-            <span className="xs:hidden">Memory</span>
+            <LayoutGrid className="size-4 shrink-0" />
+            <span>New Memory</span>
           </button>
         </motion.div>
       </div>
 
-      {albums.length > 0 ? (
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {albums.map((album, i) => (
-            <AlbumCard
-              key={album.id}
-              album={album}
-              index={i}
-              onDelete={handleDeleteAlbum}
-            />
-          ))}
-        </div>
-      ) : (
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        {/* Persistent Create Card - Always shows at start */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex flex-col items-center justify-center py-24 md:py-32 text-center bg-card/50 border border-border/50 rounded-[2.5rem] border-dashed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          onClick={handleCreateAlbumClick}
+          className="group relative aspect-[4/3] sm:aspect-[3/4] md:aspect-[4/3] rounded-3xl border-2 border-dashed border-border/60 hover:border-gold/40 bg-card/40 hover:bg-card/60 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center p-6 text-center"
         >
-          <div className="size-20 rounded-3xl bg-muted/80 flex items-center justify-center mb-6 shadow-inner">
-            <Ghost className="size-10 text-subtle/60" />
+          <div className="size-14 sm:size-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gold/10 transition-all duration-500">
+            <Plus className="size-7 sm:size-8 text-subtle group-hover:text-gold" />
           </div>
-          <h3 className="text-2xl font-black text-bright mb-3">No albums yet</h3>
-          <p className="text-subtle max-w-xs mx-auto mb-8 text-sm md:text-base leading-relaxed">
-            Every great journey starts with a single step. Start a new collection to group your favorite memories together.
+          <h3 className="text-base sm:text-lg font-black text-subtle group-hover:text-bright uppercase tracking-tight transition-colors">
+            Create Album
+          </h3>
+          <p className="text-[10px] text-subtle/40 font-bold uppercase tracking-[0.2em] mt-2 group-hover:text-subtle/60 transition-colors">
+            New Collection
           </p>
-          <button
-            onClick={handleCreateAlbumClick}
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-bright text-background font-black text-sm uppercase tracking-widest hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
-          >
-            <Plus className="size-5" />
-            Create First Album
-          </button>
         </motion.div>
-      )}
+
+        {albums.map((album, i) => (
+          <AlbumCard
+            key={album.id}
+            album={album}
+            index={i}
+            onDelete={handleDeleteAlbum}
+          />
+        ))}
+
+        {/* Show a skeleton hint if no albums yet (Empty state integrated into grid) */}
+        {albums.length === 0 && (
+          <>
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="hidden xs:flex aspect-[4/3] sm:aspect-[3/4] md:aspect-[4/3] rounded-3xl border border-border/20 bg-card/10 items-center justify-center overflow-hidden relative grayscale opacity-20"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <Ghost className="size-12 text-subtle/20" />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
 
       <CreateAlbumModal
         isOpen={isCreateModalOpen}
