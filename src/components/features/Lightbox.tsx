@@ -124,22 +124,22 @@ export default function Lightbox({ memory, onClose, onPrev, onNext, hasPrev, has
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.92, opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="relative w-full max-w-6xl mx-4 grid grid-cols-1 lg:grid-cols-12 gap-0 bg-card rounded-2xl overflow-hidden border border-border/40 max-h-[90vh]"
+          className="relative w-full max-w-6xl mx-auto sm:mx-4 grid grid-cols-1 lg:grid-cols-12 gap-0 bg-card sm:rounded-2xl overflow-hidden border-t sm:border border-border/40 h-full sm:h-auto max-h-[100dvh] sm:max-h-[90vh]"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="lg:col-span-8 relative bg-black flex items-center justify-center min-h-[300px] lg:min-h-[500px]">
+          <div className="lg:col-span-8 relative bg-black flex items-center justify-center min-h-[40vh] sm:min-h-[500px]">
             {memory.mediaType === 'video' ? (
               <video
                 src={memory.mediaUrl}
                 controls
                 autoPlay
-                className="w-full h-full object-contain max-h-[70vh] lg:max-h-[85vh]"
+                className="w-full h-full object-contain max-h-[50vh] lg:max-h-[85vh]"
               />
             ) : (
               <img
                 src={memory.mediaUrl}
                 alt={memory.title}
-                className="w-full h-full object-contain max-h-[70vh] lg:max-h-[85vh]"
+                className="w-full h-full object-contain max-h-[50vh] lg:max-h-[85vh]"
               />
             )}
             {hasPrev && (
@@ -162,26 +162,26 @@ export default function Lightbox({ memory, onClose, onPrev, onNext, hasPrev, has
             )}
           </div>
 
-          <div className="lg:col-span-4 p-6 flex flex-col overflow-y-auto">
-            <div className="flex items-start justify-between gap-3 mb-5">
+          <div className="lg:col-span-4 p-5 sm:p-8 flex flex-col overflow-y-auto">
+            <div className="flex items-start justify-between gap-4 mb-6">
               {isEditing ? (
                 <input
                   type="text"
                   value={editTitle}
                   onChange={(e) => setEditTitle(e.target.value)}
-                  className="w-full h-10 px-3 rounded-lg bg-secondary/60 border border-border/50 text-base font-bold text-bright focus:outline-none focus:ring-1 focus:ring-gold/50"
+                  className="w-full h-11 px-4 rounded-xl bg-secondary/60 border border-border/50 text-base font-bold text-bright focus:outline-none focus:ring-1 focus:ring-gold/50"
                   placeholder="Memory Title"
                   autoFocus
                 />
               ) : (
-                <h2 className="text-xl font-bold text-bright leading-tight">{memory.title}</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-bright leading-tight tracking-tight">{memory.title}</h2>
               )}
               <button
                 onClick={onClose}
-                className="shrink-0 size-8 rounded-lg bg-secondary/60 flex items-center justify-center hover:bg-secondary transition-colors"
+                className="shrink-0 size-10 rounded-xl bg-secondary/60 flex items-center justify-center hover:bg-secondary transition-all hover:rotate-90"
                 aria-label="Close"
               >
-                <X className="size-4" />
+                <X className="size-5" />
               </button>
             </div>
 
