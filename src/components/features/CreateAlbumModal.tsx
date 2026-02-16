@@ -158,11 +158,11 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                         </div>
 
                         {/* Form Body - Scrollable */}
-                        <form onSubmit={handleSubmit} className="p-6 sm:p-7 space-y-5 overflow-y-auto custom-scrollbar">
+                        <form onSubmit={handleSubmit} className="p-5 sm:p-7 space-y-6 overflow-y-auto custom-scrollbar">
                             {/* Album Name */}
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold uppercase tracking-wider text-subtle flex items-center gap-2">
-                                    <Info className="size-3" />
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-subtle/80 flex items-center gap-2 px-1">
+                                    <Info className="size-3 text-gold/60" />
                                     Album Name
                                 </label>
                                 <input
@@ -172,18 +172,18 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     placeholder="e.g. Graduation 2024"
-                                    className="w-full px-4 py-3 bg-muted/50 border border-border rounded-2xl focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none text-bright transition-all"
+                                    className="w-full px-5 py-4 bg-muted/30 border border-border/60 rounded-2xl focus:ring-2 focus:ring-gold/20 focus:border-gold/40 outline-none text-bright transition-all placeholder:text-subtle/40 font-medium"
                                 />
                             </div>
 
                             {/* Description */}
-                            <div className="space-y-1.5">
-                                <div className="flex justify-between items-center">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-subtle flex items-center gap-2">
-                                        <Plus className="size-3" />
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center px-1">
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-subtle/80 flex items-center gap-2">
+                                        <Plus className="size-3 text-gold/60" />
                                         Description
                                     </label>
-                                    <span className={`text-[10px] font-medium ${formData.description.length > MAX_DESC_LENGTH ? 'text-destructive' : 'text-subtle'}`}>
+                                    <span className={`text-[10px] font-black tracking-widest ${formData.description.length > MAX_DESC_LENGTH ? 'text-destructive' : 'text-subtle/60'}`}>
                                         {formData.description.length}/{MAX_DESC_LENGTH}
                                     </span>
                                 </div>
@@ -192,14 +192,14 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                                     value={formData.description}
                                     onChange={(e) => setFormData({ ...formData, description: e.target.value.slice(0, 200) })}
                                     placeholder="Tell the story of this collection..."
-                                    className="w-full px-4 py-3 bg-muted/50 border border-border rounded-2xl focus:ring-2 focus:ring-gold/30 focus:border-gold/50 outline-none text-bright resize-none transition-all"
+                                    className="w-full px-5 py-4 bg-muted/30 border border-border/60 rounded-2xl focus:ring-2 focus:ring-gold/20 focus:border-gold/40 outline-none text-bright resize-none transition-all placeholder:text-subtle/40 font-medium leading-relaxed"
                                 />
                             </div>
 
                             {/* Image Upload Area */}
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold uppercase tracking-wider text-subtle flex items-center gap-2">
-                                    <UploadCloud className="size-3" />
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-subtle/80 flex items-center gap-2 px-1">
+                                    <UploadCloud className="size-3 text-gold/60" />
                                     Cover Image
                                 </label>
                                 <div
@@ -207,27 +207,27 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                                     onDragOver={handleDragOver}
                                     onDragLeave={handleDragLeave}
                                     onDrop={handleDrop}
-                                    className={`relative aspect-[16/10] rounded-2xl border-2 border-dashed transition-all cursor-pointer overflow-hidden group flex flex-col items-center justify-center gap-2
-                                        ${isDragging ? 'border-gold bg-gold/5 scale-[0.98]' : 'border-border hover:border-gold/40 hover:bg-muted/30'}
+                                    className={`relative aspect-[16/9] rounded-2xl border-2 border-dashed transition-all cursor-pointer overflow-hidden group flex flex-col items-center justify-center gap-3
+                                        ${isDragging ? 'border-gold bg-gold/5 scale-[0.98]' : 'border-border/60 hover:border-gold/40 hover:bg-muted/30'}
                                         ${previewUrl ? 'border-none' : ''}`}
                                 >
                                     {previewUrl ? (
                                         <>
-                                            <img src={previewUrl} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Preview" />
-                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                <div className="px-4 py-2 bg-background/80 backdrop-blur-sm rounded-full text-xs font-bold text-bright border border-white/10">
-                                                    Change Image
+                                            <img src={previewUrl} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Preview" />
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                                <div className="px-5 py-2.5 bg-background/90 backdrop-blur-md rounded-full text-[11px] font-black text-gold border border-gold/20 uppercase tracking-widest shadow-xl">
+                                                    Change Cover
                                                 </div>
                                             </div>
                                         </>
                                     ) : (
                                         <>
-                                            <div className={`p-4 rounded-full bg-muted transition-colors ${isDragging ? 'bg-gold/10 text-gold' : 'text-subtle group-hover:text-gold'}`}>
-                                                <ImageIcon className="size-6" />
+                                            <div className={`p-4 rounded-full bg-muted/50 transition-all ${isDragging ? 'bg-gold/20 text-gold scale-110' : 'text-subtle group-hover:text-gold group-hover:bg-gold/10'}`}>
+                                                <ImageIcon className="size-7" />
                                             </div>
                                             <div className="text-center">
-                                                <span className="text-sm font-semibold text-bright block">Click or Drag to Upload</span>
-                                                <span className="text-[10px] text-subtle uppercase font-bold tracking-widest mt-1">PNG, JPG up to 10MB</span>
+                                                <span className="text-sm font-black text-bright/90 block tracking-tight">Drop your cover here</span>
+                                                <span className="text-[10px] text-subtle/60 uppercase font-black tracking-[0.15em] mt-1.5 block">High resolution JPG/PNG</span>
                                             </div>
                                         </>
                                     )}
@@ -242,10 +242,10 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                             </div>
 
                             {/* Details Row */}
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-subtle flex items-center gap-2">
-                                        <User className="size-3" />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-subtle/80 flex items-center gap-2 px-1">
+                                        <User className="size-3 text-gold/60" />
                                         Author
                                     </label>
                                     <input
@@ -253,35 +253,40 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                                         value={formData.createdBy}
                                         onChange={(e) => setFormData({ ...formData, createdBy: e.target.value })}
                                         placeholder="Your Name"
-                                        className="w-full px-4 py-2.5 bg-muted/50 border border-border rounded-2xl focus:ring-2 focus:ring-gold/30 outline-none text-bright transition-all"
+                                        className="w-full px-5 py-3.5 bg-muted/30 border border-border/60 rounded-2xl focus:ring-2 focus:ring-gold/20 outline-none text-bright transition-all placeholder:text-subtle/40 font-medium"
                                     />
                                 </div>
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-subtle flex items-center gap-2">
-                                        {formData.isPublic ? <Globe className="size-3" /> : <Lock className="size-3" />}
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-subtle/80 flex items-center gap-2 px-1">
+                                        {formData.isPublic ? <Globe className="size-3 text-gold/60" /> : <Lock className="size-3 text-gold/60" />}
                                         Visibility
                                     </label>
-                                    <select
-                                        value={formData.isPublic ? 'public' : 'private'}
-                                        onChange={(e) => setFormData({ ...formData, isPublic: e.target.value === 'public' })}
-                                        className="w-full px-4 py-2.5 bg-muted/50 border border-border rounded-2xl focus:ring-2 focus:ring-gold/30 outline-none text-bright transition-all appearance-none cursor-pointer"
-                                    >
-                                        <option value="public">Public Collection</option>
-                                        <option value="private">Private (Only me)</option>
-                                    </select>
+                                    <div className="relative">
+                                        <select
+                                            value={formData.isPublic ? 'public' : 'private'}
+                                            onChange={(e) => setFormData({ ...formData, isPublic: e.target.value === 'public' })}
+                                            className="w-full px-5 py-3.5 bg-muted/30 border border-border/60 rounded-2xl focus:ring-2 focus:ring-gold/20 outline-none text-bright transition-all appearance-none cursor-pointer font-medium"
+                                        >
+                                            <option value="public">Public Collection</option>
+                                            <option value="private">Private (Only me)</option>
+                                        </select>
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-subtle/40">
+                                            <Plus className="size-4 rotate-45" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* footer/Submit */}
-                            <div className="pt-2">
+                            <div className="pt-4 pb-2">
                                 <button
                                     disabled={isSubmitting || !coverFile || !formData.name}
-                                    className="w-full py-4 rounded-2xl bg-gold text-background font-black text-sm uppercase tracking-widest hover:bg-amber-400 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 shadow-lg shadow-gold/20"
+                                    className="w-full py-5 rounded-[1.25rem] bg-gold text-background font-black text-xs uppercase tracking-[0.2em] hover:bg-amber-400 hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 shadow-2xl shadow-gold/20"
                                 >
                                     {isSubmitting ? (
                                         <>
                                             <Loader2 className="size-5 animate-spin" />
-                                            <span>Processing...</span>
+                                            <span>Crafting Album...</span>
                                         </>
                                     ) : (
                                         <>
@@ -290,6 +295,9 @@ export default function CreateAlbumModal({ isOpen, onClose }: CreateAlbumModalPr
                                         </>
                                     )}
                                 </button>
+                                <p className="text-[10px] text-center text-subtle/40 font-bold uppercase tracking-widest mt-4">
+                                    Press <span className="text-subtle/60">ESC</span> or click outside to cancel
+                                </p>
                             </div>
                         </form>
                     </motion.div>
